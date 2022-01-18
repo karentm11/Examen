@@ -1,0 +1,238 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Examen Segundo Parcial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/indexJ.css">
+
+<body>
+     <h1>DATOS DE JSON</h1>
+    <div class="contenedor">
+        <div class="texto" id="texto">
+    <div class="container">
+        <div class="section">
+            <button class="btn" id="boton">Cargar Datos json</button>
+            <table id="buscar" align="center" border="4" bordercolor="green"
+            cellpadding="0" cellspacing="0" style="display: none;">
+                <thead>
+                  <tr>
+                    <th bgcolor="yellow">Cedula</th>
+                    <th bgcolor="yellow">Nombres</th>
+                    <th bgcolor="yellow">Direccion</th>
+                    <th bgcolor="yellow">Telefono</th>
+                    <th bgcolor="yellow">Correo</th>
+                </tr>
+                </thead>
+                <tbody id="res">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="seleccion">
+            <p>Seleccione el cliente</p>
+            <div class="consulta">
+              <button onclick="consultarData('Karen Graciela','Torres Mero')">Karen Torres</button>
+              <button onclick="consultarData('Bryan Antonio','Pin Tinitana')">Bryan Pin</button>
+              <button onclick="consultarData('Myckel Hoover','Samaniego Arambulo')">Hoover Samaniego</button>
+              <button onclick="consultarData('Nicole Maria','Pionce Cedeño')">Nicole Pionce</button>
+              <button onclick="consultarData('Kelvin Manuel','Quijije Lopez')">Kelvin Lopez</button>
+              <button onclick="consultarData('Joel Enrique','Moreira Molina')">Joel Molina</button>
+              <button onclick="consultarData('Maria Odalys','Cevallos Pico')">Odalys Cevallos</button>
+              <button onclick="consultarData('Cecilia Estefania','Garcia Santana')">Cecilia Garcia</button>
+              <button onclick="consultarData('Ahinoa Thais','Figueroa Torres')">Ahinoa Figueroa</button>
+              <button onclick="consultarData('Myriam Cecilia','Mero Franco')">Myriam Mero</button>
+            </div>
+          </div>
+          <div class="seccion_est">
+            <h2>Informacion del Cliente</h2>
+            <div id="datos" class="seccion-datos"></div>
+          </div>
+    </div>
+
+    </div>
+    
+     
+    <script src="indexJ.js"></script>
+
+</body>
+</html>
+
+
+
+{
+    "DatosCliente": [
+      {
+  
+        "cedula": "1351061443",
+        "nombres": "Karen Torres",
+        "direccion": "barrio el paraiso",
+        "telefono": "0900000000",
+        "correo": "karen@hotmail.com"
+    
+    
+    
+    },
+    {
+        "cedula": "1356278943",
+        "nombres": "Bryan Tinitana",
+        "direccion": "Montecristi",
+        "telefono": "0911111111",
+        "correo": "bryan@gmail.com"
+    },
+    {
+        "cedula": "1398532653",
+        "nombres": "Myckel Samaniego",
+        "direccion": "barrio Ulbirrios 2",
+        "telefono": "0933333333",
+        "correo": "hoover@hotmail.com"
+    },
+    {
+        "cedula": "1354997893",
+        "nombres": "Nicole Pionce",
+        "direccion": "jipijapa",
+        "telefono": "0944444444",
+        "correo": "maria@gmail.com"
+    },
+    {
+        "cedula": "1356487654",
+        "nombres": "Kelvin Manuel",
+        "direccion": "Montecristi",
+        "telefono": "0955555555",
+        "correo": "kelvin@gmail.com"
+    },
+    {
+        "cedula": "1324334567",
+        "nombres": "Joel Moreira",
+        "direccion": "barrio cuba",
+        "telefono": "0966666666",
+        "correo": "joel@gmail.com"
+    },
+    {
+        "cedula": "1352276654",
+        "nombres": "Maria Cevallos",
+        "direccion": "barrio cuba",
+        "telefono": "0977777777",
+        "correo": "odalys@outlook.com"
+    },
+    {
+        "cedula": "1306759999",
+        "nombres": "Cecilia Garcia",
+        "direccion": "centro de manta",
+        "telefono": "0988888888",
+        "correo": "cecilia@hotmail.com"
+    },
+    {
+        "cedula": "1356278333",
+        "nombres": "Ahinoa Figueroa",
+        "direccion": "Manta",
+        "telefono": "0999999999",
+        "correo": "ahinoa@gmail.com"
+    },
+    {
+        "cedula": "1398777777",
+        "nombres": "Myriam Mero",
+        "direccion": "barrio altagracia",
+        "telefono": "0922222222",
+        "correo": "myriam@gmail.com"
+    }
+    ]
+  }
+
+   document.getElementById('boton').addEventListener('click', obtenerdatos);
+function obtenerdatos() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'index.json', true);
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let datos = JSON.parse(this.responseText);
+        let DatosEstudiante = datos.DatosEstudiante;
+            console.log(datos);
+            let res = document.querySelector('#res');
+            res.innerHTML = '';
+            for (let item of DatosEstudiante) {
+                res.innerHTML += `<tr>
+                <td>${item.apellidos}</td>
+                <td>${item.nombres}</td>
+                <td>${item.semestre}</td>
+                <td>${item.paralelo}</td>
+                <td>${item.direccion}</td>
+                <td>${item.telefono}</td>
+                <td>${item.correo}</td>
+                </tr>`;
+            }
+            var table= document.getElementById("buscar");
+            
+            table.style.display="block"
+            
+        }
+    };
+}
+ 
+ indexJ.js
+ 
+const consultarData = (name, apell) => {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let respuesta = JSON.parse(xhttp.responseText);
+        let DatosCliente = respuesta.DatosCliente;
+        DatosCliente.map((cliente) => {
+          if (name === cliente.nombres) {
+            recibirDato(cliente);
+          }
+        });
+      }
+    };
+    xhttp.open("GET", "index.json", true);
+    xhttp.send();
+  };
+  const recibirDato = (cliente) => {
+    const {nombres, direccion, telefono, correo } =
+      cliente;
+    document.getElementById("datos").innerHTML = `
+      <div>
+          <p> <strong>Nombre: </strong> ${nombres}</p> 
+          <p> <strong>Mail: </strong> ${correo} </p> 
+          <p> <strong>Tefelono: </strong> ${telefono} </p> 
+          <p> <strong>Direccion: </strong> ${direccion} </p> 
+          <p> <strong>Cedula: </strong> ${cedula} </p> 
+        
+      </div>
+      `;
+  };
+  const mostrarError = () => {
+    document.getElementById("datos").innerHTML = "<p>404 Not Found</p>";
+  };
+     
+        
+  SEGUNDO EJERCICIO
+        
+        
+function saveCliente(req,res){
+        //Se obtiene la variable del formulario
+        const cedula = req.body.cedula;
+	const nombre = req.body.nombres;
+	const direccion = req.body.direccion;
+        const telefono = req.body.telefono;
+        const email = req.body.email;
+        
+        // Se Validan los datos
+        if (!cedula && !nombres && !direccion && !telefono &&!email) {
+
+            return res.render('insertarclientes', {
+                message: 'Los datos se han ingresado'
+            });
+        }
+conexion.query('SELECT * FROM cliente WHERE Cedula = ? AND Nombre = ?  AND Telefono= ? AND Direccion=? AND Email=? ', [nombres, cedula, telefono, direccion, email], (error, result) => {
+
+            if (result == 0) {
+                conexion.query('INSERT INTO cliente SET ?', { Nombres:nombres, Cedula:cedula, Telefono:telefono, Direccion:direccion, Email:email }, (error, results) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        res.redirect('/Listcliente');
+                    }
+                });
